@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# Transcompiled code
+packages/*/dist
+
+# env files
+.env*
+
+# IDEA files
+.idea/
