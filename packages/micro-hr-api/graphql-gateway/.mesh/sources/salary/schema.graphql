@@ -19,5 +19,5 @@ scalar DateTime
 
 type Query {
   """특정 직원의 연봉 내역을 조회"""
-  salaryLogs(employeeId: String!, fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]!
+  listSalaryLogByEmployeeId(employeeId: String!, fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]!
 }

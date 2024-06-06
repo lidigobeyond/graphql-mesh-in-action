@@ -53,7 +53,7 @@ export type Query = {
   department?: Maybe<Department>;
   departments: Departments;
   /** 특정 직원의 부서 내역을 조회 */
-  departmentLogs: Array<DepartmentLog>;
+  listDepartmentLogByEmployeeId: Array<DepartmentLog>;
 };
 
 
@@ -68,7 +68,7 @@ export type QuerydepartmentsArgs = {
 };
 
 
-export type QuerydepartmentLogsArgs = {
+export type QuerylistDepartmentLogByEmployeeIdArgs = {
   employeeId: Scalars['String']['input'];
   fromDateTime: Scalars['DateTime']['input'];
   toDateTime: Scalars['DateTime']['input'];
@@ -80,7 +80,7 @@ export type QuerydepartmentLogsArgs = {
   /** null **/
   departments: InContextSdkMethod<Query['departments'], QuerydepartmentsArgs, MeshContext>,
   /** 특정 직원의 부서 내역을 조회 **/
-  departmentLogs: InContextSdkMethod<Query['departmentLogs'], QuerydepartmentLogsArgs, MeshContext>
+  listDepartmentLogByEmployeeId: InContextSdkMethod<Query['listDepartmentLogByEmployeeId'], QuerylistDepartmentLogByEmployeeIdArgs, MeshContext>
   };
 
   export type MutationSdk = {

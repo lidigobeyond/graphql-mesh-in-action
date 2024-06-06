@@ -85,9 +85,9 @@ export type Query = {
   employee?: Maybe<Employee>;
   employees: Employees;
   /** 부서에 속한 직원 목록 */
-  employeesByDepartment: Employees;
+  listEmployeesByDepartmentId: Employees;
   /** 부서에 속한 직원 내역 목록 */
-  employeeLogsByDepartment: EmployeeLogs;
+  listEmployeeLogsByDepartmentId: EmployeeLogs;
 };
 
 
@@ -102,14 +102,14 @@ export type QueryemployeesArgs = {
 };
 
 
-export type QueryemployeesByDepartmentArgs = {
+export type QuerylistEmployeesByDepartmentIdArgs = {
   departmentId: Scalars['String']['input'];
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-export type QueryemployeeLogsByDepartmentArgs = {
+export type QuerylistEmployeeLogsByDepartmentIdArgs = {
   departmentId: Scalars['String']['input'];
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -121,9 +121,9 @@ export type QueryemployeeLogsByDepartmentArgs = {
   /** null **/
   employees: InContextSdkMethod<Query['employees'], QueryemployeesArgs, MeshContext>,
   /** 부서에 속한 직원 목록 **/
-  employeesByDepartment: InContextSdkMethod<Query['employeesByDepartment'], QueryemployeesByDepartmentArgs, MeshContext>,
+  listEmployeesByDepartmentId: InContextSdkMethod<Query['listEmployeesByDepartmentId'], QuerylistEmployeesByDepartmentIdArgs, MeshContext>,
   /** 부서에 속한 직원 내역 목록 **/
-  employeeLogsByDepartment: InContextSdkMethod<Query['employeeLogsByDepartment'], QueryemployeeLogsByDepartmentArgs, MeshContext>
+  listEmployeeLogsByDepartmentId: InContextSdkMethod<Query['listEmployeeLogsByDepartmentId'], QuerylistEmployeeLogsByDepartmentIdArgs, MeshContext>
   };
 
   export type MutationSdk = {

@@ -72,7 +72,7 @@ type Query {
   employee(id: String!): Employee
   employees(offset: Int, limit: Int): Employees!
   """부서에 속한 직원 목록"""
-  employeesByDepartment(departmentId: String!, offset: Int, limit: Int): Employees!
+  listEmployeesByDepartmentId(departmentId: String!, offset: Int, limit: Int): Employees!
   """부서에 속한 직원 내역 목록"""
-  employeeLogsByDepartment(departmentId: String!, offset: Int, limit: Int): EmployeeLogs!
+  listEmployeeLogsByDepartmentId(departmentId: String!, offset: Int, limit: Int): EmployeeLogs!
 }

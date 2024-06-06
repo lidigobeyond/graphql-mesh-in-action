@@ -29,7 +29,7 @@ export class DepartmentResolver {
   }
 
   @Query(() => [DepartmentLog], {
-    name: 'departmentLogs',
+    name: 'listDepartmentLogByEmployeeId',
     description: '특정 직원의 부서 내역을 조회',
   })
   listDepartmentLog(

@@ -17,9 +17,9 @@ type Department {
   """이름"""
   name: String!
   """현재 부서에 속한 직원 목록"""
-  employees(offset: Int, limit: Int): Employees! @resolveTo(sourceName: "employee", sourceTypeName: "Query", sourceFieldName: "employeesByDepartment", requiredSelectionSet: "{ id }", sourceArgs: {departmentId: "{root.id}"})
+  employees(offset: Int, limit: Int): Employees! @resolveTo(sourceName: "employee", sourceTypeName: "Query", sourceFieldName: "listEmployeesByDepartmentId", requiredSelectionSet: "{ id }", sourceArgs: {departmentId: "{root.id}"})
   """부서에 속한 직원 내역 목록"""
-  employeeLogs(offset: Int, limit: Int): EmployeeLogs! @resolveTo(sourceName: "employee", sourceTypeName: "Query", sourceFieldName: "employeeLogsByDepartment", requiredSelectionSet: "{ id }", sourceArgs: {departmentId: "{root.id}"})
+  employeeLogs(offset: Int, limit: Int): EmployeeLogs! @resolveTo(sourceName: "employee", sourceTypeName: "Query", sourceFieldName: "listEmployeeLogsByDepartmentId", requiredSelectionSet: "{ id }", sourceArgs: {departmentId: "{root.id}"})
 }
 
 """(Paginated) 부서 목록"""
@@ -70,11 +70,11 @@ type Employee {
   """소속 부서"""
   department: Department! @resolveTo(sourceName: "department", sourceTypeName: "Query", sourceFieldName: "department", requiredSelectionSet: "{ departmentId }", sourceArgs: {id: "{root.departmentId}"})
   """소속 부서 내역"""
-  departmentLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [DepartmentLog!]! @resolveTo(sourceName: "department", sourceTypeName: "Query", sourceFieldName: "departmentLogs", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
+  departmentLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [DepartmentLog!]! @resolveTo(sourceName: "department", sourceTypeName: "Query", sourceFieldName: "listDepartmentLogByEmployeeId", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
   """연봉 내역"""
-  salaryLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]! @resolveTo(sourceName: "salary", sourceTypeName: "Query", sourceFieldName: "salaryLogs", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
+  salaryLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]! @resolveTo(sourceName: "salary", sourceTypeName: "Query", sourceFieldName: "listSalaryLogByEmployeeId", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
   """직급 내역"""
-  titleLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [TitleLog!]! @resolveTo(sourceName: "title", sourceTypeName: "Query", sourceFieldName: "titleLogs", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
+  titleLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [TitleLog!]! @resolveTo(sourceName: "title", sourceTypeName: "Query", sourceFieldName: "listTitleLogByEmployeeId", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
 }
 
 """성별"""

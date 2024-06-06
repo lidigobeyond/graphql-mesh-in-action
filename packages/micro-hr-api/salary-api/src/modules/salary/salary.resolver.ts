@@ -7,10 +7,10 @@ export class SalaryResolver {
   constructor(private readonly salaryService: SalaryService) {}
 
   @Query(() => [SalaryLog], {
-    name: 'salaryLogs',
+    name: 'listSalaryLogByEmployeeId',
     description: '특정 직원의 연봉 내역을 조회',
   })
-  async listLogByEmployeeId(
+  listLogByEmployeeId(
     @Args('employeeId', { type: () => String }) employeeId: string,
     @Args('fromDateTime', { type: () => Date }) from: Date,
     @Args('toDateTime', { type: () => Date }) to: Date,

@@ -20,7 +20,7 @@ export class EmployeeResolver {
   }
 
   @Query(() => Employees, {
-    name: 'employeesByDepartment',
+    name: 'listEmployeesByDepartmentId',
     description: '부서에 속한 직원 목록',
   })
   listByDepartment(
@@ -32,7 +32,7 @@ export class EmployeeResolver {
   }
 
   @Query(() => EmployeeLogs, {
-    name: 'employeeLogsByDepartment',
+    name: 'listEmployeeLogsByDepartmentId',
     description: '부서에 속한 직원 내역 목록',
   })
   listLogs(

@@ -33,11 +33,11 @@ export type SalaryLog = {
 
 export type Query = {
   /** 특정 직원의 연봉 내역을 조회 */
-  salaryLogs: Array<SalaryLog>;
+  listSalaryLogByEmployeeId: Array<SalaryLog>;
 };
 
 
-export type QuerysalaryLogsArgs = {
+export type QuerylistSalaryLogByEmployeeIdArgs = {
   employeeId: Scalars['String']['input'];
   fromDateTime: Scalars['DateTime']['input'];
   toDateTime: Scalars['DateTime']['input'];
@@ -45,7 +45,7 @@ export type QuerysalaryLogsArgs = {
 
   export type QuerySdk = {
       /** 특정 직원의 연봉 내역을 조회 **/
-  salaryLogs: InContextSdkMethod<Query['salaryLogs'], QuerysalaryLogsArgs, MeshContext>
+  listSalaryLogByEmployeeId: InContextSdkMethod<Query['listSalaryLogByEmployeeId'], QuerylistSalaryLogByEmployeeIdArgs, MeshContext>
   };
 
   export type MutationSdk = {

@@ -33,11 +33,11 @@ export type TitleLog = {
 
 export type Query = {
   /** 특정 직원의 직급 내역을 조회 */
-  titleLogs: Array<TitleLog>;
+  listTitleLogByEmployeeId: Array<TitleLog>;
 };
 
 
-export type QuerytitleLogsArgs = {
+export type QuerylistTitleLogByEmployeeIdArgs = {
   employeeId: Scalars['String']['input'];
   fromDateTime: Scalars['DateTime']['input'];
   toDateTime: Scalars['DateTime']['input'];
@@ -45,7 +45,7 @@ export type QuerytitleLogsArgs = {
 
   export type QuerySdk = {
       /** 특정 직원의 직급 내역을 조회 **/
-  titleLogs: InContextSdkMethod<Query['titleLogs'], QuerytitleLogsArgs, MeshContext>
+  listTitleLogByEmployeeId: InContextSdkMethod<Query['listTitleLogByEmployeeId'], QuerylistTitleLogByEmployeeIdArgs, MeshContext>
   };
 
   export type MutationSdk = {

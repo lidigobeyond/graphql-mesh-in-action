@@ -39,5 +39,5 @@ type Query {
   department(id: String!): Department
   departments(offset: Int, limit: Int): Departments!
   """특정 직원의 부서 내역을 조회"""
-  departmentLogs(employeeId: String!, fromDateTime: DateTime!, toDateTime: DateTime!): [DepartmentLog!]!
+  listDepartmentLogByEmployeeId(employeeId: String!, fromDateTime: DateTime!, toDateTime: DateTime!): [DepartmentLog!]!
 }

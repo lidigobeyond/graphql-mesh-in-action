@@ -7,10 +7,10 @@ export class TitleResolver {
   constructor(private readonly titleService: TitleService) {}
 
   @Query(() => [TitleLog], {
-    name: 'titleLogs',
+    name: 'listTitleLogByEmployeeId',
     description: '특정 직원의 직급 내역을 조회',
   })
-  async listLogByEmployeeId(
+  listLogByEmployeeId(
     @Args('employeeId', { type: () => String }) employeeId: string,
     @Args('fromDateTime', { type: () => Date }) from: Date,
     @Args('toDateTime', { type: () => Date }) to: Date,

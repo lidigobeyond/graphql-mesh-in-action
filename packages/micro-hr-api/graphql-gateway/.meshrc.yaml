@@ -23,7 +23,7 @@ additionalTypeDefs: |
     employees(offset: Int, limit: Int): Employees! @resolveTo(
       sourceName: "employee",
       sourceTypeName: "Query",
-      sourceFieldName: "employeesByDepartment",
+      sourceFieldName: "listEmployeesByDepartmentId",
       requiredSelectionSet: "{ id }",
       sourceArgs: {
         departmentId: "{root.id}",
@@ -36,7 +36,7 @@ additionalTypeDefs: |
     employeeLogs(offset: Int, limit: Int): EmployeeLogs! @resolveTo(
       sourceName: "employee",
       sourceTypeName: "Query",
-      sourceFieldName: "employeeLogsByDepartment",
+      sourceFieldName: "listEmployeeLogsByDepartmentId",
       requiredSelectionSet: "{ id }",
       sourceArgs: {
         departmentId: "{root.id}",
@@ -63,7 +63,7 @@ additionalTypeDefs: |
     departmentLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [DepartmentLog!]! @resolveTo(
       sourceName: "department",
       sourceTypeName: "Query",
-      sourceFieldName: "departmentLogs",
+      sourceFieldName: "listDepartmentLogByEmployeeId",
       requiredSelectionSet: "{ id }",
       sourceArgs: {
         employeeId: "{root.id}",
@@ -76,7 +76,7 @@ additionalTypeDefs: |
     salaryLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]! @resolveTo(
       sourceName: "salary",
       sourceTypeName: "Query",
-      sourceFieldName: "salaryLogs",
+      sourceFieldName: "listSalaryLogByEmployeeId",
       requiredSelectionSet: "{ id }",
       sourceArgs: {
         employeeId: "{root.id}",
@@ -89,7 +89,7 @@ additionalTypeDefs: |
     titleLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [TitleLog!]! @resolveTo(
       sourceName: "title",
       sourceTypeName: "Query",
-      sourceFieldName: "titleLogs",
+      sourceFieldName: "listTitleLogByEmployeeId",
       requiredSelectionSet: "{ id }",
       sourceArgs: {
         employeeId: "{root.id}",
@@ -99,10 +99,10 @@ additionalTypeDefs: |
 transforms:
   - filterSchema:
       filters:
-        - Query.!employeesByDepartment
-        - Query.!employeeLogsByDepartment
-        - Query.!departmentLogs
-        - Query.!salaryLogs
-        - Query.!titleLogs
+        - Query.!listEmployeesByDepartmentId
+        - Query.!listEmployeeLogsByDepartmentId
+        - Query.!listDepartmentLogByEmployeeId
+        - Query.!listSalaryLogByEmployeeId
+        - Query.!listTitleLogByEmployeeId
 serve:
   port: 3000
