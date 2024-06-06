@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/micro-hr-api/*"
   ],
   "scripts": {
     "build": "lerna run build"

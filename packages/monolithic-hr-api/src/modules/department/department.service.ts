@@ -9,7 +9,7 @@ export class DepartmentService {
   private departmentLoader: DataLoader<string, Department | null>;
   constructor(private readonly prisma: PrismaService) {
     this.departmentLoader = new DataLoader<string, Department | null>(
-      (keys: string[]) => this.getByIds(keys)
+      (keys: string[]) => this.getByIds(keys),
     );
   }
 
@@ -27,7 +27,7 @@ export class DepartmentService {
 
     return ids.map((id) => {
       const department = departments.find(
-        (department) => department.dept_no === id
+        (department) => department.dept_no === id,
       );
       if (!department) {
         return null;
@@ -42,7 +42,7 @@ export class DepartmentService {
 
   async list(
     offset: number | null,
-    limit: number | null
+    limit: number | null,
   ): Promise<Departments> {
     const total = await this.prisma.departments.count();
 
@@ -59,7 +59,7 @@ export class DepartmentService {
         plainToInstance(Department, {
           id: department.dept_no,
           name: department.dept_name,
-        })
+        }),
       ),
     };
   }
@@ -67,7 +67,7 @@ export class DepartmentService {
   async listLogByEmployeeId(
     employeeId: string,
     from: Date,
-    to: Date
+    to: Date,
   ): Promise<DepartmentLog[]> {
     const dept_emps = await this.prisma.dept_emp.findMany({
       where: {
@@ -80,15 +80,15 @@ export class DepartmentService {
               },
               to_date: {
                 lte: to,
-              }
+              },
             },
             {
               to_date: {
                 lte: to,
-              }
+              },
             },
           ],
-        }
+        },
       },
       include: {
         departments: true,
@@ -103,7 +103,7 @@ export class DepartmentService {
           id: dept_emp.departments.dept_no,
           name: dept_emp.departments.dept_name,
         }),
-      })
+      }),
     );
   }
 }

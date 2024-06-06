@@ -9,7 +9,7 @@ export interface IPaginationType<Item> {
 }
 
 export const Paginated = <Item>(
-  classRef: Type<Item> | Abstract<Item> | Item
+  classRef: Type<Item> | Abstract<Item> | Item,
 ): Type<IPaginationType<Item>> => {
   @ObjectType({ isAbstract: true })
   class PaginationType implements IPaginationType<Item> {

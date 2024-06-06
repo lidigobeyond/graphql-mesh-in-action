@@ -6,11 +6,14 @@ import { TitleLog } from './title.dto';
 export class TitleResolver {
   constructor(private readonly titleService: TitleService) {}
 
-  @Query(() => [TitleLog], { name: 'titleLogs', description: '특정 직원의 직급 내역을 조회' })
+  @Query(() => [TitleLog], {
+    name: 'titleLogs',
+    description: '특정 직원의 직급 내역을 조회',
+  })
   async listLogByEmployeeId(
     @Args('employeeId', { type: () => String }) employeeId: string,
     @Args('fromDateTime', { type: () => Date }) from: Date,
-    @Args('toDateTime', { type: () => Date }) to: Date
+    @Args('toDateTime', { type: () => Date }) to: Date,
   ): Promise<TitleLog[]> {
     return this.titleService.listLogByEmployeeId(employeeId, from, to);
   }

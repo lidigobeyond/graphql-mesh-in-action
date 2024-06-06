@@ -14,7 +14,7 @@ export class EmployeeResolver {
     private readonly employeeService: EmployeeService,
     private readonly departmentService: DepartmentService,
     private readonly titleService: TitleService,
-    private readonly salaryService: SalaryService
+    private readonly salaryService: SalaryService,
   ) {}
 
   @Query(() => Employee, { name: 'employee', nullable: true })
@@ -25,7 +25,7 @@ export class EmployeeResolver {
   @Query(() => Employees, { name: 'employees' })
   list(
     @Args('offset', { type: () => Number, nullable: true }) offset = 0,
-    @Args('limit', { type: () => Number, nullable: true }) limit = 10
+    @Args('limit', { type: () => Number, nullable: true }) limit = 10,
   ): Promise<Employees> {
     return this.employeeService.list(offset, limit);
   }
@@ -45,7 +45,7 @@ export class EmployeeResolver {
   listDepartmentLog(
     @Parent() employee: Employee,
     @Args('fromDateTime', { type: () => Date }) from: Date,
-    @Args('toDateTime', { type: () => Date }) to: Date
+    @Args('toDateTime', { type: () => Date }) to: Date,
   ): Promise<DepartmentLog[]> {
     return this.departmentService.listLogByEmployeeId(employee.id, from, to);
   }
@@ -57,7 +57,7 @@ export class EmployeeResolver {
   listTitleLog(
     @Parent() employee: Employee,
     @Args('fromDateTime', { type: () => Date }) from: Date,
-    @Args('toDateTime', { type: () => Date }) to: Date
+    @Args('toDateTime', { type: () => Date }) to: Date,
   ): Promise<TitleLog[]> {
     return this.titleService.listLogByEmployeeId(employee.id, from, to);
   }
@@ -69,7 +69,7 @@ export class EmployeeResolver {
   listSalarLog(
     @Parent() employee: Employee,
     @Args('fromDateTime', { type: () => Date }) from: Date,
-    @Args('toDateTime', { type: () => Date }) to: Date
+    @Args('toDateTime', { type: () => Date }) to: Date,
   ): Promise<SalaryLog[]> {
     return this.salaryService.listLogByEmployeeId(employee.id, from, to);
   }

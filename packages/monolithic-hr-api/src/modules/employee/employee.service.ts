@@ -99,7 +99,7 @@ export class EmployeeService {
           departmentId: employee.dept_emp[0].dept_no,
           title: employee.titles[0].title,
           salary: employee.salaries[0].salary,
-        })
+        }),
       ),
     });
   }
@@ -107,7 +107,7 @@ export class EmployeeService {
   async listByDepartmentId(
     departmentId: string,
     offset: number | null,
-    limit: number | null
+    limit: number | null,
   ): Promise<Employees> {
     const total = await this.prisma.employees.count({
       where: {
@@ -170,7 +170,7 @@ export class EmployeeService {
           departmentId: employee.dept_emp[0].dept_no,
           title: employee.titles[0].title,
           salary: employee.salaries[0].salary,
-        })
+        }),
       ),
     });
   }
@@ -178,7 +178,7 @@ export class EmployeeService {
   async listLogsByDepartmentId(
     departmentId: string,
     offset: number | null,
-    limit: number | null
+    limit: number | null,
   ): Promise<EmployeeLogs> {
     const total = await this.prisma.dept_emp.count({
       where: {
@@ -232,7 +232,7 @@ export class EmployeeService {
             title: employee.titles[0].title,
             salary: employee.salaries[0].salary,
           }),
-        })
+        }),
       ),
     });
   }

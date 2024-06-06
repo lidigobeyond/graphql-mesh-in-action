@@ -10,7 +10,7 @@ export class SalaryService {
   async listLogByEmployeeId(
     employeeId: string,
     from: Date,
-    to: Date
+    to: Date,
   ): Promise<SalaryLog[]> {
     const salaries = await this.prisma.salaries.findMany({
       where: {
@@ -23,15 +23,15 @@ export class SalaryService {
               },
               to_date: {
                 lte: to,
-              }
+              },
             },
             {
               to_date: {
                 lte: to,
-              }
+              },
             },
           ],
-        }
+        },
       },
       orderBy: {
         from_date: 'desc',
@@ -43,7 +43,7 @@ export class SalaryService {
         fromDate: salary.from_date,
         toDate: salary.to_date,
         amount: salary.salary,
-      })
+      }),
     );
   }
 }
