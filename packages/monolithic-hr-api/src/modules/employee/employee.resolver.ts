@@ -1,4 +1,11 @@
-import { Args, Int, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { Employee, Employees } from './employee.dto';
 import { EmployeeService } from './employee.service';
 import { Department, DepartmentLog } from '../department/department.dto';
@@ -73,27 +80,5 @@ export class EmployeeResolver {
     @Args('toDateTime', { type: () => Date }) to: Date,
   ): Promise<SalaryLog[]> {
     return this.salaryService.listLogByEmployeeId(employee.id, from, to);
-  }
-
-  @Query(() => Employees, { name: 'employeesByDepartment', description: '부서에 속한 직원 목록' })
-  listByDepartment(
-    @Args('departmentId') departmentId: string,
-    @Args('offset', { type: () => Int, nullable: true }) offset = 0,
-    @Args('limit', { type: () => Int, nullable: true }) limit = 10,
-  ): Promise<Employees> {
-    return this.employeeService.listByDepartmentId(departmentId, offset, limit);
-  }
-
-  @Query(() => EmployeeLogs, { name: 'employeeLogsByDepartment', description: '부서에 속한 직원 내역 목록' })
-  listLogs(
-    @Args('departmentId') departmentId: string,
-    @Args({ name: 'offset', type: () => Int, nullable: true }) offset = 0,
-    @Args({ name: 'limit', type: () => Int, nullable: true }) limit = 10,
-  ): Promise<EmployeeLogs> {
-    return this.employeeService.listLogsByDepartmentId(
-      departmentId,
-      offset,
-      limit,
-    );
   }
 }

@@ -1,5 +1,12 @@
 import { Department, DepartmentLog, Departments } from './department.dto';
-import { Args, Int, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { DepartmentService } from './department.service';
 import { Employee, EmployeeLogs, Employees } from '../employee/employee.dto';
 import { EmployeeService } from '../employee/employee.service';
@@ -24,18 +31,6 @@ export class DepartmentResolver {
     limit = 10,
   ): Promise<Departments> {
     return this.departmentService.list(offset, limit);
-  }
-
-  @Query(() => [DepartmentLog], {
-    name: 'departmentLogs',
-    description: '특정 직원의 부서 내역을 조회',
-  })
-  listDepartmentLog(
-    @Args('employeeId', { type: () => String }) employeeId: string,
-    @Args('fromDateTime', { type: () => Date }) from: Date,
-    @Args('toDateTime', { type: () => Date }) to: Date,
-  ): Promise<DepartmentLog[]> {
-    return this.departmentService.listLogByEmployeeId(employeeId, from, to);
   }
 
   @ResolveField(() => Employees, {
