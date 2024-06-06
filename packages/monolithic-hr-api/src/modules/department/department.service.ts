@@ -71,13 +71,24 @@ export class DepartmentService {
   ): Promise<DepartmentLog[]> {
     const dept_emps = await this.prisma.dept_emp.findMany({
       where: {
-        emp_no: parseInt(employeeId),
-        from_date: {
-          gte: from,
-        },
-        to_date: {
-          lte: to,
-        },
+        AND: {
+          emp_no: parseInt(employeeId),
+          OR: [
+            {
+              from_date: {
+                gte: from,
+              },
+              to_date: {
+                lte: to,
+              }
+            },
+            {
+              to_date: {
+                lte: to,
+              }
+            },
+          ],
+        }
       },
       include: {
         departments: true,
