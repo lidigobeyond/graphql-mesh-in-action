@@ -1,0 +1,23 @@
+schema {
+  query: Query
+}
+
+"""연봉 내역"""
+type SalaryLog {
+  """시작일"""
+  fromDate: DateTime!
+  """종료일"""
+  toDate: DateTime!
+  """연봉"""
+  amount: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  """특정 직원의 연봉 내역을 조회"""
+  salaryLogs(employeeId: String!, fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]!
+}

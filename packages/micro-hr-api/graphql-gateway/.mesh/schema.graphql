@@ -1,0 +1,140 @@
+schema {
+  query: Query
+}
+
+directive @resolveTo(requiredSelectionSet: String, sourceName: String!, sourceTypeName: String!, sourceFieldName: String!, sourceSelectionSet: String, sourceArgs: ResolveToSourceArgs, keyField: String, keysArg: String, pubsubTopic: String, filterBy: String, additionalArgs: ResolveToSourceArgs, result: String, resultType: String) on FIELD_DEFINITION
+
+type Query {
+  department(id: String!): Department
+  departments(offset: Int, limit: Int): Departments!
+  employee(id: String!): Employee
+  employees(offset: Int, limit: Int): Employees!
+}
+
+type Department {
+  """부서 ID"""
+  id: ID!
+  """이름"""
+  name: String!
+  """현재 부서에 속한 직원 목록"""
+  employees(offset: Int, limit: Int): Employees! @resolveTo(sourceName: "employee", sourceTypeName: "Query", sourceFieldName: "employeesByDepartment", requiredSelectionSet: "{ id }", sourceArgs: {departmentId: "{root.id}"})
+  """부서에 속한 직원 내역 목록"""
+  employeeLogs(offset: Int, limit: Int): EmployeeLogs! @resolveTo(sourceName: "employee", sourceTypeName: "Query", sourceFieldName: "employeeLogsByDepartment", requiredSelectionSet: "{ id }", sourceArgs: {departmentId: "{root.id}"})
+}
+
+"""(Paginated) 부서 목록"""
+type Departments {
+  """총 개수"""
+  total: Int!
+  """페이지"""
+  offset: Int!
+  """페이지당 개수"""
+  limit: Int!
+  items: [Department!]!
+}
+
+"""부서 내역"""
+type DepartmentLog {
+  """시작일"""
+  fromDate: DateTime!
+  """종료일"""
+  toDate: DateTime!
+  """부서"""
+  department: Department!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Employee {
+  """사번"""
+  id: ID!
+  """생년월일"""
+  birthDate: DateTime!
+  """이름"""
+  firstName: String!
+  """성"""
+  lastName: String!
+  """성별"""
+  gender: Gender!
+  """입사일"""
+  hireDate: DateTime!
+  """소속 부서 ID"""
+  departmentId: String!
+  """직책"""
+  title: String!
+  """연봉"""
+  salary: Int!
+  """소속 부서"""
+  department: Department! @resolveTo(sourceName: "department", sourceTypeName: "Query", sourceFieldName: "department", requiredSelectionSet: "{ departmentId }", sourceArgs: {id: "{root.departmentId}"})
+  """소속 부서 내역"""
+  departmentLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [DepartmentLog!]! @resolveTo(sourceName: "department", sourceTypeName: "Query", sourceFieldName: "departmentLogs", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
+  """연봉 내역"""
+  salaryLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]! @resolveTo(sourceName: "salary", sourceTypeName: "Query", sourceFieldName: "salaryLogs", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
+  """직급 내역"""
+  titleLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [TitleLog!]! @resolveTo(sourceName: "title", sourceTypeName: "Query", sourceFieldName: "titleLogs", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
+}
+
+"""성별"""
+enum Gender {
+  """남성"""
+  MALE
+  """여성"""
+  FEMALE
+}
+
+"""(Paginated) 직원 목록"""
+type Employees {
+  """총 개수"""
+  total: Int!
+  """페이지"""
+  offset: Int!
+  """페이지당 개수"""
+  limit: Int!
+  items: [Employee!]!
+}
+
+"""부서에 속한 직원 이력"""
+type EmployeeLog {
+  """시작일"""
+  fromDate: DateTime!
+  """종료일"""
+  toDate: DateTime!
+  """직원"""
+  employee: Employee!
+}
+
+"""(Paginated) 부서에 속한 직원 이력"""
+type EmployeeLogs {
+  """총 개수"""
+  total: Int!
+  """페이지"""
+  offset: Int!
+  """페이지당 개수"""
+  limit: Int!
+  items: [EmployeeLog!]!
+}
+
+"""연봉 내역"""
+type SalaryLog {
+  """시작일"""
+  fromDate: DateTime!
+  """종료일"""
+  toDate: DateTime!
+  """연봉"""
+  amount: Int!
+}
+
+"""직책 내역"""
+type TitleLog {
+  """시작일"""
+  fromDate: DateTime!
+  """종료일"""
+  toDate: DateTime!
+  """직책"""
+  title: String!
+}
+
+scalar ResolveToSourceArgs

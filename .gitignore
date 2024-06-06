@@ -3,6 +3,7 @@ node_modules/
 
 # Transcompiled code
 packages/*/dist
+packages/micro-hr-api/*/dist
 
 # env files
 .env*

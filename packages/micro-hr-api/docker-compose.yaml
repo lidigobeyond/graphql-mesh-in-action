@@ -1,0 +1,125 @@
+version: '3'
+services:
+  graphql-gateway:
+    build:
+      context:  .
+      dockerfile: ./packages/micro-hr-api/graphql-gateway/Dockerfile
+    container_name: graphql-gateway
+    ports:
+      - '3000:3000'
+    environment:
+      PORT: 3000
+      DEPARTMENT_API_URL: 'http://department-api:3001/api'
+      EMPLOYEE_API_URL: 'http://employee-api:3002/api'
+      SALARY_API_URL: 'http://salary-api:3003/api'
+      TITLE_API_URL: 'http://title-api:3004/api'
+    volumes:
+      - ./packages/micro-hr-api/graphql-gateway:/app/packages/micro-hr-api/graphql-gateway
+    depends_on:
+      department-api:
+        condition: service_healthy
+      employee-api:
+        condition: service_healthy
+      salary-api:
+        condition: service_healthy
+      title-api:
+        condition: service_healthy
+  department-api:
+    build:
+      context:  .
+      dockerfile: ./packages/micro-hr-api/department-api/Dockerfile
+    container_name: department-api
+    ports:
+      - '3001:3001'
+    environment:
+      PORT: 3001
+      DATABASE_URL: 'mysql://root:@db:3306/employees'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - ./packages/micro-hr-api/department-api:/app/packages/micro-hr-api/department-api
+    depends_on:
+        db:
+            condition: service_healthy
+  employee-api:
+    build:
+      context:  .
+      dockerfile: ./packages/micro-hr-api/employee-api/Dockerfile
+    container_name: employee-api
+    ports:
+      - '3002:3002'
+    environment:
+      PORT: 3002
+      DATABASE_URL: 'mysql://root:@db:3306/employees'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/api/health"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - ./packages/micro-hr-api/employee-api:/app/packages/micro-hr-api/employee-api
+    depends_on:
+        db:
+            condition: service_healthy
+  salary-api:
+    build:
+      context:  .
+      dockerfile: ./packages/micro-hr-api/salary-api/Dockerfile
+    container_name: salary-api
+    ports:
+      - '3003:3003'
+    environment:
+      PORT: 3003
+      DATABASE_URL: 'mysql://root:@db:3306/employees'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/api/health"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - ./packages/micro-hr-api/salary-api:/app/packages/micro-hr-api/salary-api
+    depends_on:
+        db:
+            condition: service_healthy
+  title-api:
+    build:
+      context:  .
+      dockerfile: ./packages/micro-hr-api/title-api/Dockerfile
+    container_name: title-api
+    ports:
+      - '3004:3004'
+    environment:
+      PORT: 3004
+      DATABASE_URL: 'mysql://root:@db:3306/employees'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3004/api/health"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - ./packages/micro-hr-api/title-api:/app/packages/micro-hr-api/title-api
+    depends_on:
+        db:
+            condition: service_healthy
+  db:
+    image: mysql:8
+    container_name: mysql-db
+    ports:
+      - '3306:3306'
+      - '33060:33060'
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - ./test_db/employees.sql:/docker-entrypoint-initdb.d/employees.sql
+      - ./test_db/load_departments.dump:/load_departments.dump
+      - ./test_db/load_employees.dump:/load_employees.dump
+      - ./test_db/load_dept_emp.dump:/load_dept_emp.dump
+      - ./test_db/load_dept_manager.dump:/load_dept_manager.dump
+      - ./test_db/load_titles.dump:/load_titles.dump
+      - ./test_db/load_salaries1.dump:/load_salaries1.dump
+      - ./test_db/load_salaries2.dump:/load_salaries2.dump
+      - ./test_db/load_salaries3.dump:/load_salaries3.dump
+      - ./test_db/show_elapsed.sql:/show_elapsed.sql

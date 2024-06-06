@@ -1,0 +1,25 @@
+{
+  "name": "graphql-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "mesh build",
+    "build": "tsc",
+    "start:dev": "mesh dev",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@graphql-mesh/cli": "^0.90.9",
+    "@graphql-mesh/graphql": "^0.98.7",
+    "@graphql-mesh/transform-filter-schema": "^0.98.6",
+    "express": "^4.19.2",
+    "graphql": "^16.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,78 @@
+schema {
+  query: Query
+}
+
+type Employee {
+  """사번"""
+  id: ID!
+  """생년월일"""
+  birthDate: DateTime!
+  """이름"""
+  firstName: String!
+  """성"""
+  lastName: String!
+  """성별"""
+  gender: Gender!
+  """입사일"""
+  hireDate: DateTime!
+  """소속 부서 ID"""
+  departmentId: String!
+  """직책"""
+  title: String!
+  """연봉"""
+  salary: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""성별"""
+enum Gender {
+  """남성"""
+  MALE
+  """여성"""
+  FEMALE
+}
+
+"""(Paginated) 직원 목록"""
+type Employees {
+  """총 개수"""
+  total: Int!
+  """페이지"""
+  offset: Int!
+  """페이지당 개수"""
+  limit: Int!
+  items: [Employee!]!
+}
+
+"""부서에 속한 직원 이력"""
+type EmployeeLog {
+  """시작일"""
+  fromDate: DateTime!
+  """종료일"""
+  toDate: DateTime!
+  """직원"""
+  employee: Employee!
+}
+
+"""(Paginated) 부서에 속한 직원 이력"""
+type EmployeeLogs {
+  """총 개수"""
+  total: Int!
+  """페이지"""
+  offset: Int!
+  """페이지당 개수"""
+  limit: Int!
+  items: [EmployeeLog!]!
+}
+
+type Query {
+  employee(id: String!): Employee
+  employees(offset: Int, limit: Int): Employees!
+  """부서에 속한 직원 목록"""
+  employeesByDepartment(departmentId: String!, offset: Int, limit: Int): Employees!
+  """부서에 속한 직원 내역 목록"""
+  employeeLogsByDepartment(departmentId: String!, offset: Int, limit: Int): EmployeeLogs!
+}
