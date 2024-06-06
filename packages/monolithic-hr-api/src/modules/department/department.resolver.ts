@@ -1,5 +1,5 @@
 import { Department, DepartmentLog, Departments } from './department.dto';
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Int, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { DepartmentService } from './department.service';
 import { Employee, EmployeeLogs, Employees } from '../employee/employee.dto';
 import { EmployeeService } from '../employee/employee.service';
@@ -18,9 +18,9 @@ export class DepartmentResolver {
 
   @Query(() => Departments, { name: 'departments' })
   list(
-    @Args({ name: 'offset', type: () => Number, nullable: true })
+    @Args({ name: 'offset', type: () => Int, nullable: true })
     offset = 0,
-    @Args({ name: 'limit', type: () => Number, nullable: true })
+    @Args({ name: 'limit', type: () => Int, nullable: true })
     limit = 10,
   ): Promise<Departments> {
     return this.departmentService.list(offset, limit);
@@ -44,9 +44,9 @@ export class DepartmentResolver {
   })
   listEmployees(
     @Parent() department: Department,
-    @Args({ name: 'offset', type: () => Number, nullable: true })
+    @Args({ name: 'offset', type: () => Int, nullable: true })
     offset = 0,
-    @Args({ name: 'limit', type: () => Number, nullable: true })
+    @Args({ name: 'limit', type: () => Int, nullable: true })
     limit = 10,
   ): Promise<Employees> {
     return this.employeeService.listByDepartmentId(
@@ -62,9 +62,9 @@ export class DepartmentResolver {
   })
   listEmployeeLogs(
     @Parent() department: Department,
-    @Args({ name: 'offset', type: () => Number, nullable: true })
+    @Args({ name: 'offset', type: () => Int, nullable: true })
     offset: number | null,
-    @Args({ name: 'limit', type: () => Number, nullable: true })
+    @Args({ name: 'limit', type: () => Int, nullable: true })
     limit: number | null,
   ): Promise<EmployeeLogs> {
     return this.employeeService.listLogsByDepartmentId(
