@@ -17,4 +17,16 @@ export class SalaryResolver {
   ): Promise<SalaryLog[]> {
     return this.salaryService.listLogByEmployeeId(employeeId, from, to);
   }
+
+  @Query(() => [[SalaryLog]], {
+    name: 'listSalaryLogByEmployeeIds',
+    description: '여러 직원의 연봉 내역을 조회',
+  })
+  listLogByEmployeeIds(
+    @Args('employeeIds', { type: () => [String] }) employeeIds: string[],
+    @Args('fromDateTime', { type: () => Date }) from: Date,
+    @Args('toDateTime', { type: () => Date }) to: Date,
+  ): Promise<SalaryLog[][]> {
+    return this.salaryService.listLogByEmployeeIds(employeeIds, from, to);
+  }
 }

@@ -76,11 +76,9 @@ additionalTypeDefs: |
     salaryLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]! @resolveTo(
       sourceName: "salary",
       sourceTypeName: "Query",
-      sourceFieldName: "listSalaryLogByEmployeeId",
-      requiredSelectionSet: "{ id }",
-      sourceArgs: {
-        employeeId: "{root.id}",
-      }
+      sourceFieldName: "listSalaryLogByEmployeeIds",
+      keyField: "id",
+      keysArg: "employeeIds",
     )
   
     """
@@ -89,11 +87,9 @@ additionalTypeDefs: |
     titleLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [TitleLog!]! @resolveTo(
       sourceName: "title",
       sourceTypeName: "Query",
-      sourceFieldName: "listTitleLogByEmployeeId",
-      requiredSelectionSet: "{ id }",
-      sourceArgs: {
-        employeeId: "{root.id}",
-      }
+      sourceFieldName: "listTitleLogByEmployeeIds",
+      keyField: "id",
+      keysArg: "employeeIds",
     )  
   }
 transforms:
@@ -103,6 +99,8 @@ transforms:
         - Query.!listEmployeeLogsByDepartmentId
         - Query.!listDepartmentLogByEmployeeId
         - Query.!listSalaryLogByEmployeeId
+        - Query.!listSalaryLogByEmployeeIds
         - Query.!listTitleLogByEmployeeId
+        - Query.!listTitleLogByEmployeeIds
 serve:
   port: 3000

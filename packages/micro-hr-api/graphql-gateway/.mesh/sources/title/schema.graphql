@@ -20,4 +20,6 @@ scalar DateTime
 type Query {
   """특정 직원의 직급 내역을 조회"""
   listTitleLogByEmployeeId(employeeId: String!, fromDateTime: DateTime!, toDateTime: DateTime!): [TitleLog!]!
+  """여러 직원의 직급 내역을 조회"""
+  listTitleLogByEmployeeIds(employeeIds: [String!]!, fromDateTime: DateTime!, toDateTime: DateTime!): [[TitleLog!]!]!
 }

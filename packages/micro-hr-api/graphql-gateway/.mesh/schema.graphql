@@ -72,9 +72,9 @@ type Employee {
   """소속 부서 내역"""
   departmentLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [DepartmentLog!]! @resolveTo(sourceName: "department", sourceTypeName: "Query", sourceFieldName: "listDepartmentLogByEmployeeId", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
   """연봉 내역"""
-  salaryLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]! @resolveTo(sourceName: "salary", sourceTypeName: "Query", sourceFieldName: "listSalaryLogByEmployeeId", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
+  salaryLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [SalaryLog!]! @resolveTo(sourceName: "salary", sourceTypeName: "Query", sourceFieldName: "listSalaryLogByEmployeeIds", keyField: "id", keysArg: "employeeIds")
   """직급 내역"""
-  titleLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [TitleLog!]! @resolveTo(sourceName: "title", sourceTypeName: "Query", sourceFieldName: "listTitleLogByEmployeeId", requiredSelectionSet: "{ id }", sourceArgs: {employeeId: "{root.id}"})
+  titleLogs(fromDateTime: DateTime!, toDateTime: DateTime!): [TitleLog!]! @resolveTo(sourceName: "title", sourceTypeName: "Query", sourceFieldName: "listTitleLogByEmployeeIds", keyField: "id", keysArg: "employeeIds")
 }
 
 """성별"""

@@ -17,4 +17,16 @@ export class TitleResolver {
   ): Promise<TitleLog[]> {
     return this.titleService.listLogByEmployeeId(employeeId, from, to);
   }
+
+  @Query(() => [[TitleLog]], {
+    name: 'listTitleLogByEmployeeIds',
+    description: '여러 직원의 직급 내역을 조회',
+  })
+  listLogByEmployeeIds(
+    @Args('employeeIds', { type: () => [String] }) employeeIds: string[],
+    @Args('fromDateTime', { type: () => Date }) from: Date,
+    @Args('toDateTime', { type: () => Date }) to: Date,
+  ): Promise<TitleLog[][]> {
+    return this.titleService.listLogByEmployeeIds(employeeIds, from, to);
+  }
 }

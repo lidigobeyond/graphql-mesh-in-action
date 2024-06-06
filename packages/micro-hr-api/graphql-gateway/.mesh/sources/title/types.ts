@@ -34,6 +34,8 @@ export type TitleLog = {
 export type Query = {
   /** 특정 직원의 직급 내역을 조회 */
   listTitleLogByEmployeeId: Array<TitleLog>;
+  /** 여러 직원의 직급 내역을 조회 */
+  listTitleLogByEmployeeIds: Array<Array<TitleLog>>;
 };
 
 
@@ -43,9 +45,18 @@ export type QuerylistTitleLogByEmployeeIdArgs = {
   toDateTime: Scalars['DateTime']['input'];
 };
 
+
+export type QuerylistTitleLogByEmployeeIdsArgs = {
+  employeeIds: Array<Scalars['String']['input']>;
+  fromDateTime: Scalars['DateTime']['input'];
+  toDateTime: Scalars['DateTime']['input'];
+};
+
   export type QuerySdk = {
       /** 특정 직원의 직급 내역을 조회 **/
-  listTitleLogByEmployeeId: InContextSdkMethod<Query['listTitleLogByEmployeeId'], QuerylistTitleLogByEmployeeIdArgs, MeshContext>
+  listTitleLogByEmployeeId: InContextSdkMethod<Query['listTitleLogByEmployeeId'], QuerylistTitleLogByEmployeeIdArgs, MeshContext>,
+  /** 여러 직원의 직급 내역을 조회 **/
+  listTitleLogByEmployeeIds: InContextSdkMethod<Query['listTitleLogByEmployeeIds'], QuerylistTitleLogByEmployeeIdsArgs, MeshContext>
   };
 
   export type MutationSdk = {
