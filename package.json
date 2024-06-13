@@ -3,7 +3,7 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "packages/micro-hr-api/*"
+    "packages/micro-hr-api-v1/*"
   ],
   "scripts": {
     "build": "lerna run build"

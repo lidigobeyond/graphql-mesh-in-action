@@ -1,34 +1,34 @@
 version: '3'
 services:
-  graphql-gateway:
+  graphql-gateway-v1:
     build:
       context:  .
-      dockerfile: ./packages/micro-hr-api/graphql-gateway/Dockerfile
-    container_name: graphql-gateway
+      dockerfile: ./packages/micro-hr-api-v1/graphql-gateway-v1/Dockerfile
+    container_name: graphql-gateway-v1
     ports:
       - '3000:3000'
     environment:
       PORT: 3000
-      DEPARTMENT_API_URL: 'http://department-api:3001/api'
-      EMPLOYEE_API_URL: 'http://employee-api:3002/api'
-      SALARY_API_URL: 'http://salary-api:3003/api'
-      TITLE_API_URL: 'http://title-api:3004/api'
+      DEPARTMENT_API_URL: 'http://department-graphql-api:3001/api'
+      EMPLOYEE_API_URL: 'http://employee-graphql-api:3002/api'
+      SALARY_API_URL: 'http://salary-graphql-api:3003/api'
+      TITLE_API_URL: 'http://title-graphql-api:3004/api'
     volumes:
-      - ./packages/micro-hr-api/graphql-gateway:/app/packages/micro-hr-api/graphql-gateway
+      - ./packages/micro-hr-api-v1/graphql-gateway-v1:/app/packages/micro-hr-api-v1/graphql-gateway-v1
     depends_on:
-      department-api:
+      department-graphql-api:
         condition: service_healthy
-      employee-api:
+      employee-graphql-api:
         condition: service_healthy
-      salary-api:
+      salary-graphql-api:
         condition: service_healthy
-      title-api:
+      title-graphql-api:
         condition: service_healthy
-  department-api:
+  department-graphql-api:
     build:
       context:  .
-      dockerfile: ./packages/micro-hr-api/department-api/Dockerfile
-    container_name: department-api
+      dockerfile: ./packages/micro-hr-api-v1/department-graphql-api/Dockerfile
+    container_name: department-graphql-api
     ports:
       - '3001:3001'
     environment:
@@ -39,15 +39,15 @@ services:
       timeout: 20s
       retries: 10
     volumes:
-      - ./packages/micro-hr-api/department-api:/app/packages/micro-hr-api/department-api
+      - ./packages/micro-hr-api-v1/department-graphql-api:/app/packages/micro-hr-api-v1/department-graphql-api
     depends_on:
         db:
             condition: service_healthy
-  employee-api:
+  employee-graphql-api:
     build:
       context:  .
-      dockerfile: ./packages/micro-hr-api/employee-api/Dockerfile
-    container_name: employee-api
+      dockerfile: ./packages/micro-hr-api-v1/employee-graphql-api/Dockerfile
+    container_name: employee-graphql-api
     ports:
       - '3002:3002'
     environment:
@@ -58,15 +58,15 @@ services:
       timeout: 20s
       retries: 10
     volumes:
-      - ./packages/micro-hr-api/employee-api:/app/packages/micro-hr-api/employee-api
+      - ./packages/micro-hr-api-v1/employee-graphql-api:/app/packages/micro-hr-api-v1/employee-graphql-api
     depends_on:
         db:
             condition: service_healthy
-  salary-api:
+  salary-graphql-api:
     build:
       context:  .
-      dockerfile: ./packages/micro-hr-api/salary-api/Dockerfile
-    container_name: salary-api
+      dockerfile: ./packages/micro-hr-api-v1/salary-graphql-api/Dockerfile
+    container_name: salary-graphql-api
     ports:
       - '3003:3003'
     environment:
@@ -77,15 +77,15 @@ services:
       timeout: 20s
       retries: 10
     volumes:
-      - ./packages/micro-hr-api/salary-api:/app/packages/micro-hr-api/salary-api
+      - ./packages/micro-hr-api-v1/salary-graphql-api:/app/packages/micro-hr-api-v1/salary-graphql-api
     depends_on:
         db:
             condition: service_healthy
-  title-api:
+  title-graphql-api:
     build:
       context:  .
-      dockerfile: ./packages/micro-hr-api/title-api/Dockerfile
-    container_name: title-api
+      dockerfile: ./packages/micro-hr-api-v1/title-graphql-api/Dockerfile
+    container_name: title-graphql-api
     ports:
       - '3004:3004'
     environment:
@@ -96,7 +96,7 @@ services:
       timeout: 20s
       retries: 10
     volumes:
-      - ./packages/micro-hr-api/title-api:/app/packages/micro-hr-api/title-api
+      - ./packages/micro-hr-api-v1/title-graphql-api:/app/packages/micro-hr-api-v1/title-graphql-api
     depends_on:
         db:
             condition: service_healthy
